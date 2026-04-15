@@ -1,0 +1,54 @@
+
+INFORMACIÓN GENERAL
+Nombre de la Necesidad:
+Desarrollo de funcionalidad MFA para Portal Global Seguros
+Fecha de la solicitud:
+30/03/2026
+Tipo de Necesidad
+Mejora
+Solicitante: 
+Auditoria
+
+Aprobador:
+
+Tubo:
+
+Áreas / Procesos impactados:
+Acceso al portal Global Seguros
+Definiciones /Acrónimos /Abreviaturas (Opcional):
+	•	MFA: La autenticación multifactorial MFA es una medida de seguridad que exige dos o más métodos de verificación para acceder a una cuenta, yendo más allá de la simple contraseña.
+
+CONTROL DE CAMBIOS
+Versión
+Fecha
+Descripción
+Responsable
+1.0
+30/03/2026
+Se crea la historia de usuario con los criterios de aceptación
+Camilo Alberto Barón Puin
+
+DESCRIPCIÓN NECESIDAD DE CAMBIO 
+Como área de ciberseguridad, se requiere implementar un mecanismo de autenticación multifactor MFA en el portal transaccional de Global Seguros, que pueda ser activado por Intermediarios, clientes y funcionarios, con el fin de fortalecer el proceso de autenticación y reducir el riesgo de accesos no autorizados a las cuentas del portal.
+
+
+Id HU
+Nombre Entregable Asociado
+Resultado Esperado
+1
+MFA Implementado para el acceso al Portal Global Seguros
+Los Intermediarios, clientes y funcionarios de Portal Global Seguros pueden hacer uso de MFA como segunda medida de verificación para permitir el acceso. 
+
+
+Consideraciones adicionales
+	•	Si el usuario no tiene configurado el MFA, el sistema debe solicitar la configuración de los 2 métodos de autenticación al usuario (Mensaje de texto, correo electrónico o aplicación como Autenticator).
+	•	Cuando el usuario ha iniciado sesión en el portal y acceda a la configuración de seguridad de su cuenta el sistema debe permitir activar la opción de MFA.
+	•	Cuando el usuario ha iniciado sesión en el portal y acceda a la configuración de seguridad de su cuenta el sistema debe permitir modificar los métodos de MFA que se encuentren configurados (Mensaje de texto, correo electrónico o aplicación como Autenticator).
+	•	Cuando el usuario ha iniciado sesión en el portal y acceda a la configuración de seguridad de su cuenta, el sistema debe permitir seleccionar al menos 2 métodos de MFA diferentes.
+	•	Cuando el usuario tiene el MFA habilitado e ingresa usuario y contraseña correctos en el formulario de iniciado sesión del portal y da clic sobre el botón “iniciar Sesion” el sistema debe solicitar un MFA antes de permitir el acceso.
+	•	Cuando el sistema solicita el segundo factor de autenticación el usuario debe ingresar el código OPT recibido, posteriormente el sistema debe verificar que el código es válido y permitir el acceso al portal. 
+	•	Cuando el sistema solicita el código OTP y el usuario ingresa un código incorrecto el sistema debe rechazar la autenticación y solicitar nuevamente el código.
+	•	Cuando el usuario se encuentra en proceso de autenticación e ingresa en 3 ocasiones el código OTP de manera incorrecta, el sistema debe bloquear temporalmente el acceso a la cuenta por 10 minutos.
+	•	El código OTP debe tener vigencia máxima de 60 segundos.
+	•	Como usuario quiero que la aplicación solicite comprobación de MFA por cada inicio de sesión 
+

@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portal Global Seguros - MFA</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="top-bar" id="session-bar" hidden>
+      <div class="top-bar-inner">
+        <span>Último inicio de sesión registrado: <span id="last-login">—</span></span>
+      </div>
+    </div>
+
+    <div class="layout">
+      <aside class="sidebar" id="sidebar" hidden>
+        <div class="sidebar-brand">
+          <img src="./source/Logo-GS-white.svg" alt="Global Seguros" />
+        </div>
+
+        <div class="sidebar-user">
+          <div class="avatar-wrap">
+            <div class="avatar" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="56" height="56" fill="#b7bdcb"><path d="M12 12a5 5 0 100-10 5 5 0 000 10zm0 2c-4 0-8 2-8 6v2h16v-2c0-4-4-6-8-6z"/></svg>
+            </div>
+            <span class="avatar-cam" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="#fff"><path d="M9 3L7.5 5H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V7a2 2 0 00-2-2h-3.5L15 3H9zm3 5a5 5 0 110 10 5 5 0 010-10z"/></svg>
+            </span>
+          </div>
+          <p class="sidebar-user-name" id="sidebar-user-name">Usuario</p>
+          <button type="button" class="sidebar-update-btn">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 113 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+            Actualizar mis datos
+          </button>
+        </div>
+
+        <nav class="sidebar-nav">
+          <button type="button" class="nav-item" data-nav="inicio">
+            <span class="nav-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10l9-7 9 7v10a2 2 0 01-2 2h-4v-7h-6v7H5a2 2 0 01-2-2V10z"/><circle cx="12" cy="13" r="1.6" fill="#e3243a" stroke="none"/></svg></span>
+            Inicio
+          </button>
+          <button type="button" class="nav-item active" data-nav="seguros">
+            <span class="nav-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 012-2h5l2 2h7a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V7z"/><path d="M9 12l2 2 4-4" stroke="#e3243a"/></svg></span>
+            Gestiona tus seguros
+          </button>
+          <button type="button" class="nav-item" data-nav="cita">
+            <span class="nav-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3 3-5 6-5s6 2 6 5"/><circle cx="17" cy="9" r="2.5" stroke="#e3243a"/><path d="M14 20c0-2 2-3.5 4-3.5" stroke="#e3243a"/></svg></span>
+            Agenda tu cita
+          </button>
+          <button type="button" class="nav-item" data-nav="docs">
+            <span class="nav-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 3h6v4H9z"/><path d="M9 12h6M9 16h4" stroke="#e3243a"/></svg></span>
+            Certificados y documentos
+          </button>
+          <button type="button" class="nav-item nav-logout" id="sidebar-logout">
+            <span class="nav-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><path d="M16 17l-5-5 5-5" stroke="#e3243a"/><path d="M21 12H11" stroke="#e3243a"/></svg></span>
+            Cerrar sesión
+          </button>
+        </nav>
+
+        <div class="sidebar-access">
+          <p>Accesibilidad</p>
+          <div class="access-buttons">
+            <button type="button" aria-label="Texto pequeño"><span class="a-small">A</span></button>
+            <button type="button" aria-label="Texto grande"><span class="a-large">A</span></button>
+            <button type="button" aria-label="Alto contraste">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#fff" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 000 18z" fill="#fff"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="sidebar-bars" aria-hidden="true"></div>
+      </aside>
+
+      <div class="main-col">
+      <main class="app-container">
+        <header class="app-header">
+          <h1>Autenticación multifactor</h1>
+          <p class="subtitle">Proceso seguro de acceso al Portal Global Seguros</p>
+        </header>
+
+      <nav id="stepper" class="stepper" aria-label="Progreso de autenticación">
+        <ol>
+          <li data-step="credentials"><span class="step-num">1</span> Credenciales</li>
+          <li data-step="method"><span class="step-num">2</span> Método</li>
+          <li data-step="verify"><span class="step-num">3</span> Verificación</li>
+        </ol>
+      </nav>
+
+      <!-- Login -->
+      <section id="screen-login" class="card screen active">
+        <h2>Iniciar sesión</h2>
+        <p class="help-text">Ingresa tus credenciales para continuar.</p>
+
+        <form id="login-form" class="form" novalidate>
+          <div class="field">
+            <label for="username">Usuario</label>
+            <input id="username" name="username" type="text" placeholder="usuario@globalseguros.com" autocomplete="username" required />
+            <small class="field-error" data-error-for="username"></small>
+          </div>
+
+          <div class="field">
+            <label for="password">Contraseña</label>
+            <input id="password" name="password" type="password" placeholder="********" autocomplete="current-password" required />
+            <small class="field-error" data-error-for="password"></small>
+          </div>
+
+          <div class="field">
+            <label for="profile">Perfil</label>
+            <select id="profile" name="profile">
+              <option value="cliente">Cliente</option>
+              <option value="intermediario">Intermediario</option>
+              <option value="funcionario">Funcionario</option>
+            </select>
+          </div>
+
+          <button type="submit">Iniciar sesión</button>
+        </form>
+      </section>
+
+      <!-- Setup MFA: capturar contactos + verificar canales -->
+      <section id="screen-mfa-setup" class="card screen">
+        <h2>Configura tu MFA</h2>
+        <p class="help-text">
+          Debes configurar y verificar <strong>al menos 2 métodos diferentes</strong> para habilitar la autenticación multifactor.
+        </p>
+
+        <form id="setup-form" class="form" novalidate>
+          <article class="method-card" data-method="sms">
+            <header class="method-head">
+              <h3>Mensaje de texto (SMS)</h3>
+              <span class="method-status" data-status-for="sms">Pendiente</span>
+            </header>
+            <div class="field">
+              <label for="sms-phone">Número de celular</label>
+              <input id="sms-phone" name="sms-phone" type="tel" placeholder="+57 300 000 0000" autocomplete="tel" />
+              <small class="field-error" data-error-for="sms-phone"></small>
+            </div>
+            <button type="button" class="secondary btn-verify" data-verify="sms">Verificar SMS</button>
+          </article>
+
+          <article class="method-card" data-method="email">
+            <header class="method-head">
+              <h3>Correo electrónico</h3>
+              <span class="method-status" data-status-for="email">Pendiente</span>
+            </header>
+            <div class="field">
+              <label for="email-address">Correo</label>
+              <input id="email-address" name="email-address" type="email" placeholder="nombre@dominio.com" autocomplete="email" />
+              <small class="field-error" data-error-for="email-address"></small>
+            </div>
+            <button type="button" class="secondary btn-verify" data-verify="email">Verificar correo</button>
+          </article>
+
+          <article class="method-card" data-method="authenticator">
+            <header class="method-head">
+              <h3>Aplicación Authenticator</h3>
+              <span class="method-status" data-status-for="authenticator">Pendiente</span>
+            </header>
+            <p class="help-text">
+              Escanea el siguiente código QR con Google Authenticator, Microsoft Authenticator o similar y luego ingresa el primer código generado.
+            </p>
+            <div class="qr-placeholder" aria-hidden="true">
+              <div class="qr-grid"></div>
+              <p class="qr-secret">Clave: <code id="totp-secret">GS-DEMO-OTP</code></p>
+            </div>
+            <button type="button" class="secondary btn-verify" data-verify="authenticator">Verificar Authenticator</button>
+          </article>
+
+          <div class="setup-summary">
+            <p id="verified-summary" class="help-text">Métodos verificados: 0 / 2 requeridos</p>
+            <button type="submit" id="save-mfa" disabled>Habilitar MFA</button>
+          </div>
+        </form>
+      </section>
+
+      <!-- Selección de método antes del challenge -->
+      <section id="screen-method-select" class="card screen">
+        <h2>Elige el método de verificación</h2>
+        <p class="help-text">Selecciona por dónde quieres recibir el código OTP para este inicio de sesión.</p>
+        <div id="method-options" class="method-options" role="radiogroup"></div>
+        <button type="button" id="continue-challenge" disabled>Continuar</button>
+      </section>
+
+      <!-- Challenge OTP -->
+      <section id="screen-mfa-challenge" class="card screen">
+        <h2>Verificación MFA</h2>
+        <p id="challenge-method" class="help-text"></p>
+        <p class="help-text">El código OTP expira en <span id="otp-seconds" class="countdown">60</span> segundos.</p>
+        <p class="help-text">Intentos restantes: <span id="attempts-left">3</span></p>
+        <p id="otp-debug" class="otp-debug"></p>
+
+        <form id="otp-form" class="form" novalidate>
+          <div class="field">
+            <label for="otp-code">Código OTP</label>
+            <input id="otp-code" name="otp-code" type="text" inputmode="numeric" maxlength="6" placeholder="000000" autocomplete="one-time-code" required />
+            <small class="field-error" data-error-for="otp-code"></small>
+          </div>
+
+          <div class="row-actions">
+            <button type="submit">Validar código</button>
+            <button type="button" id="resend-otp" class="secondary">Reenviar OTP</button>
+            <button type="button" id="change-method" class="ghost">Cambiar método</button>
+          </div>
+        </form>
+      </section>
+
+      <!-- Bloqueo temporal -->
+      <section id="screen-locked" class="card screen">
+        <h2>Cuenta bloqueada temporalmente</h2>
+        <p class="help-text">
+          Por seguridad, hemos bloqueado el acceso durante 10 minutos tras 3 intentos fallidos.
+        </p>
+        <p class="lock-countdown">
+          Tiempo restante: <span id="lock-seconds">600</span> s
+        </p>
+        <button type="button" id="lock-back" class="secondary" disabled>Volver al inicio</button>
+      </section>
+
+      <!-- Dashboard -->
+      <section id="screen-dashboard" class="card screen">
+        <div class="dashboard-header">
+          <h2>Bienvenido al portal</h2>
+          <button id="logout-btn" class="secondary">Cerrar sesión</button>
+        </div>
+
+        <p id="mfa-status-label" class="help-text"></p>
+
+        <div class="security-panel">
+          <h3>Configuración de seguridad</h3>
+          <p class="help-text">Activa, desactiva o modifica tus métodos MFA.</p>
+
+          <form id="security-form" class="form">
+            <label class="toggle-label">
+              <input id="mfa-enabled" type="checkbox" />
+              MFA habilitado
+            </label>
+
+            <fieldset class="methods">
+              <legend>Métodos configurados</legend>
+              <label><input class="security-method" type="checkbox" value="sms" /> Mensaje de texto (SMS)</label>
+              <label><input class="security-method" type="checkbox" value="email" /> Correo electrónico</label>
+              <label><input class="security-method" type="checkbox" value="authenticator" /> Aplicación Authenticator</label>
+            </fieldset>
+
+            <div class="row-actions">
+              <button type="submit">Guardar cambios de seguridad</button>
+              <button type="button" id="reconfigure-btn" class="ghost">Reconfigurar métodos</button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <section id="messages" class="messages" aria-live="polite"></section>
+      </main>
+
+      <footer class="site-footer">
+      <div class="site-footer-inner">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <img src="./source/Grupo 63.png" alt="Global Seguros" class="footer-logo" />
+          </div>
+
+          <div class="footer-col">
+            <h4>Contáctanos</h4>
+            <ul>
+              <li><a href="#">Agenda tu cita</a></li>
+              <li><a href="#">Servicio al cliente</a></li>
+              <li><a href="#" class="underline">Oficina más cercana</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col footer-col--wide">
+            <div class="footer-recos">
+              <span class="reco-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#0b2f7a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M7 11v9H3v-9h4zm12-2a2 2 0 0 0-2-2h-4.5l.8-3.9a1.4 1.4 0 0 0-2.4-1.3L7 7v13h10a2 2 0 0 0 2-1.6l1-7.4"/>
+                  <path d="M14 2l.8 1.6M17 3l.6 1.4M18 6l1.6 0" stroke="#dc2319"/>
+                </svg>
+              </span>
+              <span class="reco-text">Soluciones recomendadas para ti</span>
+            </div>
+            <div class="footer-social">
+              <a href="#" aria-label="LinkedIn" class="social"><svg viewBox="0 0 24 24" width="14" height="14" fill="#0b2f7a"><path d="M4.98 3.5a2.5 2.5 0 11-.02 5.001 2.5 2.5 0 01.02-5.001zM3 9h4v12H3zM10 9h3.8v1.7h.1c.5-.9 1.7-1.9 3.5-1.9 3.7 0 4.4 2.4 4.4 5.6V21h-4v-5.5c0-1.3 0-3-1.8-3s-2.1 1.4-2.1 2.9V21h-4z"/></svg></a>
+              <a href="#" aria-label="Instagram" class="social"><svg viewBox="0 0 24 24" width="14" height="14" fill="#0b2f7a"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.8.3 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.3 1 .4 2.2.1 1.2.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.3 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .3-2.2.4-1.2.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-1.2-.1-1.8-.3-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.3-1-.4-2.2-.1-1.2-.1-1.6-.1-4.8s0-3.6.1-4.8c.1-1.2.3-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.3 2.2-.4 1.2-.1 1.6-.1 4.8-.1zm0-2.2C8.7 0 8.3 0 7.1.1 5.8.1 5 .3 4.2.6c-.8.3-1.5.7-2.2 1.4C1.3 2.7.9 3.4.6 4.2.3 5 .1 5.8.1 7.1 0 8.3 0 8.7 0 12s0 3.7.1 4.9c.1 1.3.3 2.1.6 2.9.3.8.7 1.5 1.4 2.2.7.7 1.4 1.1 2.2 1.4.8.3 1.6.5 2.9.6C8.3 24 8.7 24 12 24s3.7 0 4.9-.1c1.3-.1 2.1-.3 2.9-.6.8-.3 1.5-.7 2.2-1.4.7-.7 1.1-1.4 1.4-2.2.3-.8.5-1.6.6-2.9.1-1.2.1-1.6.1-4.9s0-3.7-.1-4.9c-.1-1.3-.3-2.1-.6-2.9-.3-.8-.7-1.5-1.4-2.2C21.3 1.3 20.6.9 19.8.6 19 .3 18.2.1 16.9.1 15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 100 12.4 6.2 6.2 0 000-12.4zm0 10.2a4 4 0 110-8 4 4 0 010 8zm6.4-10.4a1.4 1.4 0 11-2.8 0 1.4 1.4 0 012.8 0z"/></svg></a>
+              <a href="#" aria-label="Facebook" class="social"><svg viewBox="0 0 24 24" width="14" height="14" fill="#0b2f7a"><path d="M22 12a10 10 0 10-11.6 9.9v-7H8v-3h2.4V9.7c0-2.4 1.4-3.7 3.6-3.7 1 0 2.1.2 2.1.2v2.3h-1.2c-1.2 0-1.5.7-1.5 1.5V12h2.6l-.4 3h-2.2v7A10 10 0 0022 12z"/></svg></a>
+              <a href="#" aria-label="YouTube" class="social"><svg viewBox="0 0 24 24" width="14" height="14" fill="#0b2f7a"><path d="M23.5 6.5a3 3 0 00-2.1-2.1C19.6 4 12 4 12 4s-7.6 0-9.4.4A3 3 0 00.5 6.5C.1 8.3.1 12 .1 12s0 3.7.4 5.5a3 3 0 002.1 2.1C4.4 20 12 20 12 20s7.6 0 9.4-.4a3 3 0 002.1-2.1c.4-1.8.4-5.5.4-5.5s0-3.7-.4-5.5zM9.8 15.5v-7l6.3 3.5-6.3 3.5z"/></svg></a>
+              <span class="footer-brandname">Global Seguros</span>
+            </div>
+          </div>
+        </div>
+
+        <hr class="footer-divider" />
+
+        <div class="footer-bottom">
+          <span>Global seguros - Portal clientes - V1.0</span>
+          <span class="footer-links">
+            <a href="#" class="underline">Defensor del consumidor financiero</a>
+            <a href="#" class="underline">Tratamiento de datos personales</a>
+          </span>
+        </div>
+      </div>
+    </footer>
+      </div>
+    </div>
+
+    <div class="devpanel" id="devpanel">
+      <button type="button" class="devpanel-toggle" id="devpanel-toggle" aria-label="Dev panel">⚙</button>
+      <div class="devpanel-body">
+        <p class="devpanel-title">Navegar pantallas (DEV)</p>
+        <button type="button" data-dev-screen="login">Login</button>
+        <button type="button" data-dev-screen="setup">Setup MFA</button>
+        <button type="button" data-dev-screen="methodSelect">Elegir método</button>
+        <button type="button" data-dev-screen="challenge">Challenge OTP</button>
+        <button type="button" data-dev-screen="locked">Bloqueado</button>
+        <button type="button" data-dev-screen="dashboard">Dashboard</button>
+      </div>
+    </div>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
