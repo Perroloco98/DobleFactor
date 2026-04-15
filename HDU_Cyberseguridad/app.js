@@ -524,11 +524,18 @@ securityForm.addEventListener("submit", (event) => {
   notify("Cambios de seguridad guardados.", "success");
 });
 
-// Dev panel — navegación directa entre pantallas
+// Dev panel — navegación directa entre pantallas (solo con ?dev=1)
 (function initDevPanel() {
   const panel = document.getElementById("devpanel");
   const toggle = document.getElementById("devpanel-toggle");
   if (!panel || !toggle) return;
+
+  const devEnabled = new URLSearchParams(window.location.search).has("dev")
+    || ["localhost", "127.0.0.1"].includes(window.location.hostname);
+  if (!devEnabled) {
+    panel.remove();
+    return;
+  }
 
   toggle.addEventListener("click", () => panel.classList.toggle("open"));
 
